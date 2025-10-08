@@ -1,8 +1,6 @@
 import React, { useEffect, useState, createContext, useContext } from 'react'
 import { BrowserRouter, Route, Routes, Link, NavLink, useNavigate } from 'react-router-dom'
 import './index.css'
-import ronit from './assets/301.webp'
-import tshirtImage from './assets/312.png'
 import menImage1 from './assets/313.jpeg'
 import menImage2 from './assets/314.jpeg'
 import menImage3 from './assets/315.jpeg'
@@ -93,7 +91,7 @@ function useTheme(): [Theme, (t: Theme) => void] {
 	return [theme, setTheme]
 }
 
-function Navbar({ theme, setTheme }: { theme: Theme; setTheme: (t: Theme) => void }) {
+function Navbar() {
 	const navItemClass = ({ isActive }: { isActive: boolean }) =>
 		`px-3 py-2 rounded-md text-sm font-medium ${
 			isActive
@@ -116,7 +114,7 @@ function Navbar({ theme, setTheme }: { theme: Theme; setTheme: (t: Theme) => voi
 		<nav className="sticky top-0 z-50 w-full border-b border-neutral-200 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/50 dark:border-neutral-800 dark:bg-neutral-900/70 dark:supports-[backdrop-filter]:bg-neutral-900/50">
 			<div className="mx-auto max-w-7xl px-4">
 				<div className="flex h-14 items-center justify-between">
-					<Link to="/" className="font-bold text-lg text-neutral-900 dark:text-white">PRODUCTS</Link>
+                    <Link to="/" className="font-bold text-lg text-neutral-900 dark:text-white">PRODUCTS</Link>
 					<div className="hidden md:flex items-center gap-1">
 						<NavLink to="/" className={navItemClass}>HOME</NavLink>
 						<NavLink to="/men" className={navItemClass}>MEN</NavLink>
@@ -786,7 +784,7 @@ export default function App() {
 			<CartContext.Provider value={{ items: cart, addItem, removeItem, clear, increment, decrement, count, total }}>
 			<ImageModalContext.Provider value={{ ...modalState, openModal, closeModal }}>
 			<div className="min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-white">
-				<Navbar theme={theme} setTheme={setTheme} />
+				<Navbar />
 				<Routes>
 					<Route path="/" element={<HomePage />} />
 					<Route path="/men" element={<MenPage />} />
