@@ -1,6 +1,8 @@
 import React, { useEffect, useState, createContext, useContext } from 'react'
 import { BrowserRouter, Route, Routes, Link, NavLink, useNavigate } from 'react-router-dom'
 import './index.css'
+import ronit from './assets/ronit.png'
+import tshirtImage from './assets/tshirt.png'
 import menImage1 from './assets/313.jpeg'
 import menImage2 from './assets/314.jpeg'
 import menImage3 from './assets/315.jpeg'
