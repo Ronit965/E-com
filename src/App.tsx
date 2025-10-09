@@ -746,7 +746,7 @@ const ImageModalContext = createContext<{
 })
 
 export default function App() {
-	const [theme, setTheme] = useTheme()
+	useTheme()
 	const [user, setUser] = useState<AuthUser | null>(() => {
 		try { return JSON.parse(localStorage.getItem('user') || 'null') } catch { return null }
 	})
@@ -811,5 +811,87 @@ export default function App() {
 			</CartContext.Provider>
 			</AuthContext.Provider>
 		</BrowserRouter>
+	)
+}
+function PaymentPage() {
+	const { total, clear } = useContext(CartContext)
+	const navigate = useNavigate()
+	const [message, setMessage] = useState<string>('')
+
+	const submitPayment = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		const formData = new FormData(e.currentTarget)
+		const paymentMethod = formData.get('method') as string
+		const cardNumber = formData.get('cardNumber') as string
+
+		if (!paymentMethod) {
+			setMessage('Please select a payment method.')
+			return
+		}
+
+		if (paymentMethod === 'card' && (!cardNumber || cardNumber.length < 12)) {
+			setMessage('Please enter a valid card number.')
+			return
+		}
+
+		// Simulate payment success
+		setMessage('Payment successful! Redirecting...')
+		setTimeout(() => {
+			clear()
+			navigate('/')
+		}, 2000)
+	}
+
+	return (
+		<section className="mx-auto max-w-7xl px-4 py-10">
+			<h1 className="mb-6 text-2xl font-semibold text-neutral-900 dark:text-white">Payment</h1>
+			{total === 0 ? (
+				<p className="text-neutral-600 dark:text-gray-400">Your cart is empty.</p>
+			) : (
+				<form onSubmit={submitPayment} className="max-w-md space-y-4">
+					<div>
+						<label className="block text-sm font-medium text-neutral-700 dark:text-gray-300 mb-2">
+							Select Payment Method
+						</label>
+						<select
+							name="method"
+							className="w-full rounded-md border border-neutral-300 p-2 text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-gray-200"
+						>
+							<option value="">-- Select --</option>
+							<option value="card">Credit/Debit Card</option>
+							<option value="upi">UPI</option>
+							<option value="cod">Cash on Delivery</option>
+						</select>
+					</div>
+
+					{/* Card Payment Section */}
+					<div>
+						<label className="block text-sm font-medium text-neutral-700 dark:text-gray-300 mb-2">
+							Card Number (if applicable)
+						</label>
+						<input
+							type="number"
+							name="cardNumber"
+							placeholder="Enter card number"
+							className="w-full rounded-md border border-neutral-300 p-2 text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-gray-200"
+						/>
+					</div>
+
+					<div className="flex items-center justify-between pt-2">
+						<div className="text-neutral-700 dark:text-gray-300">
+							Total: <span className="font-semibold">₹{total}</span>
+						</div>
+						<button
+							type="submit"
+							className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-500"
+						>
+							Pay Now
+						</button>
+					</div>
+
+					{message && <p className="text-sm text-green-600 dark:text-green-400">{message}</p>}
+				</form>
+			)}
+		</section>
 	)
 }
