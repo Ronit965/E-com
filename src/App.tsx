@@ -1,8 +1,6 @@
 import React, { useEffect, useState, createContext, useContext } from 'react'
 import { BrowserRouter, Route, Routes, Link, NavLink, useNavigate } from 'react-router-dom'
 import './index.css'
-import ronit from './assets/ronit.png'
-import tshirtImage from './assets/tshirt.png'
 import menImage1 from './assets/313.jpeg'
 import menImage2 from './assets/314.jpeg'
 import menImage3 from './assets/315.jpeg'
@@ -235,7 +233,7 @@ function MixedProducts() {
 									<span className="font-semibold">₹{price}</span>
 								</div>
 								<div className="mt-2 hidden gap-2 sm:flex">
-									<button onClick={() => addItem({ name, price })} className="w-full rounded-md border border-neutral-300 px-3 py-1 text-sm text-neutral-800 hover:bg-neutral-100 dark:border-neutral-700 dark:text-gray-200 dark:hover:bg-neutral-800">Add to Cart</button>
+								<button onClick={() => addItem({ name, price, imageUrl: mixedImages[i] })} className="w-full rounded-md border border-neutral-300 px-3 py-1 text-sm text-neutral-800 hover:bg-neutral-100 dark:border-neutral-700 dark:text-gray-200 dark:hover:bg-neutral-800">Add to Cart</button>
 									<button onClick={() => navigate(user ? '/payment' : '/login', { replace: false })} className="w-full rounded-md bg-blue-600 px-3 py-1 text-sm font-medium text-white hover:bg-blue-500">Buy Now</button>
 								</div>
 							</div>
@@ -336,7 +334,7 @@ function ProductsGrid({ title, count, getName, getImage }: { title: string; coun
 									<span className="font-semibold">₹{price}</span>
 								</div>
 								<div className="mt-2 hidden gap-2 sm:flex">
-									<button onClick={() => addItem({ name, price })} className="w-full rounded-md border border-neutral-300 px-3 py-1 text-sm text-neutral-800 hover:bg-neutral-100 dark:border-neutral-700 dark:text-gray-200 dark:hover:bg-neutral-800">Add to Cart</button>
+								<button onClick={() => addItem({ name, price, imageUrl: image })} className="w-full rounded-md border border-neutral-300 px-3 py-1 text-sm text-neutral-800 hover:bg-neutral-100 dark:border-neutral-700 dark:text-gray-200 dark:hover:bg-neutral-800">Add to Cart</button>
 									<button onClick={() => navigate(user ? '/payment' : '/login', { replace: false })} className="w-full rounded-md bg-blue-600 px-3 py-1 text-sm font-medium text-white hover:bg-blue-500">Buy Now</button>
 								</div>
 							</div>
